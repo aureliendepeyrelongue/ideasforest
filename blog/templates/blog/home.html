@@ -1,0 +1,58 @@
+{% extends "blog/base.html" %}
+{% block content %}
+{% for post in posts %}
+
+<div class="col-md-3">
+    <div class="idea-card">
+        <div class="idea-card-head">
+            <img class="rounded-circle article-img" src="{{post.author.profile.image.url}}" alt="">
+            <a class="mr-2" href="{% url 'user_detail' post.author.username %}">{{ post.author }}</a>
+        </div>
+        <div class="idea-card-body">
+            <p class="card-text"><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+{% if is_paginated %}
+
+<div class="col-md-12 paginator-container">
+    <nav aria-label="...">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item ">
+                <a class="page-link" href="?page=1" tabindex="-1">Premier</a>
+            </li>
+            <li class="page-item ">
+                <a class="page-link" " href=" ?page={{ page_obj.previous_page_number }}" tabindex="-1">Précédent</a>
+            </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <li class="page-item active">
+                <a class="page-link" href="?page={{ num }}">{{num}}</a>
+            </li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <li class="page-item ">
+                <a class="page-link" href="?page={{ num }}">{{num}}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item ">
+                <a class="page-link" href="?page={{page_obj.next_page_number}}">Suivant</a>
+            </li>
+            <li class="page-item ">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Précédent</a>
+            </li>
+            {% endif %}
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock content %}

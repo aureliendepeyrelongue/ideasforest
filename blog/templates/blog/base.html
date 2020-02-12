@@ -1,0 +1,113 @@
+{% load static%}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'blog/main.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% if title %}
+    <title>Ideas Forest - {{title}} </title>
+    {% else %}
+    <title>Ideas Forest</title>
+    {% endif %}
+
+</head>
+
+<body>
+
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">IdeasForest</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item {{home_active}}">
+                        <a class="nav-item nav-link" href="{% url 'blog-home' %}">
+                            <i class="fa fa-list-ul"></i>
+                            &nbsp
+                            Parcourir les idées</a>
+                    </li>
+                    <li class="nav-item *">
+                        <a class="nav-item nav-link {{about_active}}" href="{% url 'blog-about' %}">À propos</a>
+                    </li>
+                </ul>
+
+                <form class="form-inline" action="{% url 'search_results' %}" method="get">
+                    <input class="form-control mr-sm-2" type="text" name="q" placeholder="Rechercher...">
+                    <button class="btn btn-success" type="submit">Rechercher</button>
+                    &nbsp&nbsp&nbsp
+                </form>
+                <ul class="navbar-nav ">
+                    {% if user.is_authenticated%}
+                    <li class="nav-item {{post_create_active}}">
+                        <a class="nav-item nav-link" href="{% url 'post-create' %}">
+                            <i class="fa fa-pencil"></i>
+                            &nbsp
+                            Publier une idée
+                        </a>
+                    </li>
+
+                    <li class="nav-item {{update_profil_active}}">
+                        <a class="nav-item nav-link" href="{% url 'profile' %}">
+                            <i class="fa fa-user"></i>
+                            &nbsp Mon
+                            profil</a>
+                    </li>
+                    <li class="nav-item">
+
+                        <a class="nav-item nav-link" href="{% url 'logout' %}"> <i class="fa fa-power-off"></i>
+                            &nbsp Déconnexion</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="{% url 'login' %}">Connexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="{% url 'register' %}">S'inscrire</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main role="main" class="container">
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="alert alert-{{message.tags}}"> {{message}}</div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="row">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
