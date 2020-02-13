@@ -1,20 +1,39 @@
 {% extends "blog/base.html" %}
 {% block content %}
-<article class="media content-section">
-    <img class="rounded-circle article-img" src="{{object.author.profile.image.url}}" alt="">
-    <div class="media-body">
-        <div class="article-metadata">
-            <a class="mr-2" href="#">{{ object.author }}</a>
-            <small class="text-muted">{{ object.date_posted|date:"d F Y" }}</small>
-            {% if object.author == user %}
-            <div>
-                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Mettre à jour</a>
-                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Supprimer</a>
+<div class="col-md-12">
+    <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{object.author.profile.image.url}}" alt="">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="#">{{ object.author }}</a>
+                <small class="text-muted">{{ object.date_posted|date:"d F Y" }}</small>
+                {% if object.author == user %}
+                <div>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Mettre à
+                        jour</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Supprimer</a>
+                </div>
+                {% endif %}
             </div>
-            {% endif %}
+            <h2 class="article-title">{{ object.title }}</h2>
+            <p class="article-content">{{ object.content }}</p>
         </div>
-        <h2 class="article-title">{{ object.title }}</h2>
-        <p class="article-content">{{ object.content }}</p>
+    </article>
+</div>
+
+<h2>Commentaires ({{comments.count}})</h2>
+{% for comment in comments %}
+<div class="col-md-12">
+    <div class=" content-section">
+        <div><img class="rounded-circle article-img" src="{{comment.author.profile.image.url}}" alt="">
+            <a class="mr-2" href="#">{{ comment.author }}</a>
+            <small class="text-muted">{{ comment.date_posted|date:"d F Y" }}</small></div>
+        <p>{{comment.content}}</p>
     </div>
-</article>
+</div>
+{% endfor %}
+
+
+
+
 {% endblock content %}

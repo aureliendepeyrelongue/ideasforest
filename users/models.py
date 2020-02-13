@@ -9,7 +9,7 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
     
-    def save(self, **kwargs):
+""" def save(self, **kwargs):
         super().save()
 
         img = Image.open(self.image.path)
@@ -19,8 +19,8 @@ class Profile(models.Model):
             img.thumbnail(output_size)
             print(img.height)
             print(img.width)
-            img.save(self.image.path)
-
+        img.save(self.image.path)
+"""
 
 
 # Create your models here.

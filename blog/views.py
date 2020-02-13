@@ -6,7 +6,7 @@ from django.views.generic import (
     CreateView,
     UpdateView,
     DeleteView)
-from .models import Post
+from .models import Post, Comment
 from django.contrib.auth.models import User
 from django.db.models import Q
 
@@ -66,6 +66,12 @@ class SearchPostListView(ListView):
 # Create your views here.
 class PostDetailView(DetailView):
     model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        context['comments'] = Comment.objects.filter(post=self.object)
+        return context
+
 
 class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     model = Post
