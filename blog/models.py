@@ -15,6 +15,10 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
+    
+    def get_likes(self):
+        return Like.objects.filter(post=self)
+        
 
 class Comment(models.Model):
     content = models.TextField()
@@ -24,3 +28,13 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content + ' // ' + self.post.title + ' // ' + self.author.username
+
+class Like(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.post.title + ' // ' + self.author.username
+
+

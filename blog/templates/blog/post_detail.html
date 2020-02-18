@@ -1,22 +1,27 @@
 {% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+
 {% block content %}
 <div class="col-md-12">
     <article class="media content-section">
-        <img class="rounded-circle article-img" src="{{object.author.profile.image.url}}" alt="">
+        <img class="rounded-circle article-img" src="{{post.author.profile.image.url}}" alt="">
         <div class="media-body">
             <div class="article-metadata">
-                <a class="mr-2" href="#">{{ object.author }}</a>
-                <small class="text-muted">{{ object.date_posted|date:"d F Y" }}</small>
-                {% if object.author == user %}
+                <a class="mr-2" href="#">{{ post.author }}</a>
+                <small class="text-muted">{{ post.date_posted|date:"d F Y" }}</small>
+                {% if post.author == user %}
                 <div>
-                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Mettre à
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Mettre à
                         jour</a>
-                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Supprimer</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Supprimer</a>
                 </div>
                 {% endif %}
             </div>
-            <h2 class="article-title">{{ object.title }}</h2>
-            <p class="article-content">{{ object.content }}</p>
+            <h2 class="article-title">{{ post.title }}</h2>
+            <p class="article-content">{{ post.content }}</p>
+            <div>
+                <a href="#liker">{{likes_number}} Likes</a>
+            </div>
         </div>
     </article>
 </div>
@@ -32,6 +37,24 @@
     </div>
 </div>
 {% endfor %}
+<div class="col-md-12">
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">
+                    Laisser un commentaire
+                </legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">
+                    Envoyer
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 
 
 

@@ -1,16 +1,28 @@
 {% extends "blog/base.html" %}
+{% load blog_filters %}
 {% block content %}
-{% for post in posts %}
-
+{% for el in list %}
 <div class="col-md-3">
     <div class="idea-card">
         <div class="idea-card-head">
-            <img class="rounded-circle article-img" src="{{post.author.profile.image.url}}" alt="">
-            <a class="mr-2" href="{% url 'user_detail' post.author.username %}">{{ post.author }}</a>
+            <img class="rounded-circle article-img" src="{{el.post.author.profile.image.url}}" alt="">
+            <a class="mr-2" href="{% url 'user_detail' el.post.author.username %}">{{ el.post.author }}</a>
         </div>
         <div class="idea-card-body">
-            <p class="card-text"><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a>
+            <p class="card-text"><a class="article-title"
+                    href="{% url 'post-detail' el.post.id %}">{{ el.post.title }}</a>
             </p>
+        </div>
+        <div class="idea-card-bottom">
+            {% if user.is_authenticated %}
+            {% if el.already_liked %}
+            <a href="#liker" style="color:red;">{{ el.likes_number }} likes</a>
+            {% else %}
+            <a href="#liker">{{ el.likes_number  }} likes</a>
+            {% endif %}
+            {% else %}
+            <a href="#liker" title="Connectez ou inscrivez-vous pour liker.">{{ el.likes_number }} likes</a>
+            {% endif %}
         </div>
     </div>
 </div>
