@@ -1,0 +1,33 @@
+{% for el in list %}
+<div class="col-md-3">
+    <div class="idea-card">
+        <div class="idea-card-head">
+            <img class="rounded-circle article-img" src="{{el.post.author.profile.image.url}}" alt="">
+            <a class="mr-2" href="{% url 'user_detail' el.post.author.id %}">{{ el.post.author }}</a>
+        </div>
+        <div class="idea-card-body">
+            <p class="card-text"><a class="article-title"
+                    href="{% url 'post-detail' el.post.id %}">{{ el.post.title }}</a>
+            </p>
+        </div>
+        <div class="idea-card-bottom">
+            {% if user.is_authenticated %}
+            {% if el.already_liked %}
+            <a class="likes-button liked" href="{% url 'like-post' el.post.id %}">
+                <span class="likes-number-container">{{ el.likes_number }}</span>
+                likes</a>
+            {% else %}
+            <a class="likes-button" href="{% url 'like-post' el.post.id %}">
+                <span class="likes-number-container">{{ el.likes_number }}</span>
+                likes</a>
+            {% endif %}
+            {% else %}
+            <a class="likes-button" href="{% url 'like-post' el.post.id %}"
+                title="Connectez ou inscrivez-vous pour liker.">
+                <span class="likes-number-container">{{ el.likes_number }}</span>
+                likes</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endfor %}

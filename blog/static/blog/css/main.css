@@ -59,3 +59,55 @@ article {
   display: flex;
   padding: 20px;
 }
+.likes-button.liked {
+  font-weight: bold;
+}
+
+footer {
+  background: #343a40;
+  color: white;
+  margin-top: 20px;
+}
+footer a {
+  color: white;
+}
+footer .footer-flex-container {
+  min-height: 80px;
+  display: flex;
+}
+footer .footer-flex-container a {
+  margin: auto;
+}
+
+#div_id_image {
+  display: none;
+}
+
+#account-img-container {
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  color: white;
+  transition: 0.3s;
+}
+
+#account-img-container:hover {
+  -webkit-filter: grayscale(100%);
+}
+
+#account-img-container .centered {
+  position: absolute;
+  background: rgba(51, 51, 51, 0.678);
+  padding: 2px;
+  width: 100%;
+  border-radius: 30%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: 0.3s;
+}
+
+#account-img-container:hover .centered {
+  opacity: 1;
+}

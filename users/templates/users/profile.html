@@ -8,7 +8,10 @@
 <div class="col-md-6 offset-md-3">
     <div class="content-section">
         <div class="media">
-            <img class="rounded-circle account-img" src="{{user.profile.image.url}}">
+            <div id="account-img-container">
+                <img id="account-img" class="rounded-circle account-img" src="{{user.profile.image.url}}">
+                <span class="centered">Modifier</span>
+            </div>
             <div class="media-body">
                 <h2 class="account-heading">{{user}}</h2>
                 <p class="text-secondary">{{user.email}}</p>
@@ -24,7 +27,7 @@
                 {{ p_form|crispy }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">
+                <button id="formSubmit" class="btn btn-outline-info" type="submit">
                     Mettre à jour
                 </button>
             </div>
@@ -32,35 +35,6 @@
     </div>
 </div>
 
-<!-- 
-<div class="modal fade" id="modalCrop">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">Crop the photo</h4>
-            </div>
-            <div class="modal-body">
-                <img src="" id="image" style="max-width: 100%;">
-            </div>
-            <div class="modal-footer">
-                <div class="btn-group pull-left" role="group">
-                    <button type="button" class="btn btn-default js-zoom-in">
-                        <span class="glyphicon glyphicon-zoom-in"></span>
-                    </button>
-                    <button type="button" class="btn btn-default js-zoom-out">
-                        <span class="glyphicon glyphicon-zoom-out"></span>
-                    </button>
-                </div>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
-                <button type="button" class="btn btn-primary js-crop-and-upload">Crop and upload</button>
-            </div>
-        </div>
-    </div>
-</div>
--->
 {% endblock content %}
 
 {% block modal%}
@@ -69,10 +43,10 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <h5 class="modal-title">Modifier votre photo de profil</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">Ajustez votre photo de profil</h4>
             </div>
             <div class="modal-body" style="display: flex;">
 
@@ -87,8 +61,8 @@
                         <span class="glyphicon glyphicon-zoom-out"></span>
                     </button>
                 </div>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
-                <button type="button" class="btn btn-primary js-crop-and-upload">Crop and upload</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary js-crop-and-upload">Modifier et uploader</button>
             </div>
         </div>
     </div>
@@ -99,6 +73,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.min.js"></script>
 
 <script>
+    $("#account-img-container").click(function () {
+        $("#id_image").click()
+    })
+
     $("#id_image").change(function () {
         if (this.files && this.files[0]) {
             var reader = new FileReader();
@@ -144,7 +122,7 @@
         $("#id_y").val(cropData["y"]);
         $("#id_height").val(cropData["height"]);
         $("#id_width").val(cropData["width"]);
-        $("#formUpload").submit();
+        $("#formSubmit").click();
     });
 
 </script>

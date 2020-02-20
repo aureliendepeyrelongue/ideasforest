@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'blog/main.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/main.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     {% block css %}
     {% endblock %}
@@ -39,12 +39,8 @@
                             &nbsp
                             Parcourir les idées</a>
                     </li>
-                    <li class="nav-item *">
-                        <a class="nav-item nav-link {{about_active}}" href="{% url 'blog-about' %}">À propos</a>
-                    </li>
                 </ul>
-
-                <form class="form-inline" action="{% url 'search_results' %}" method="get">
+                <form class="form-inline" action="{% url 'search-results' %}" method="get">
                     <input class="form-control mr-sm-2" type="text" name="q" placeholder="Rechercher...">
                     <button class="btn btn-success" type="submit">Rechercher</button>
                     &nbsp&nbsp&nbsp
@@ -103,9 +99,9 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
@@ -116,6 +112,32 @@
     {% block javascript %}
 
     {% endblock %}
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="footer-flex-container">
+                        <a href="#">A propos</a>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="footer-flex-container">
+                        <a href="#">
+                            Nous contacter
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="footer-flex-container">
+                        <a href="#">liens sociaux
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
 </body>
 
 </html>

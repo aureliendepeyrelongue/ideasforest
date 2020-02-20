@@ -13,7 +13,7 @@
                 <div class="alert alert-primary" role="alert">
                     {{user}} a proposé {{posts_counting}} idées de startup !
                 </div>
-                <a href="{% url 'user-posts' user %}" class="btn btn-outline-info">
+                <a href="{% url 'user-post-list' user.id %}" class="btn btn-outline-info">
                     Découvrir ses idées !
                 </a>
             </div>

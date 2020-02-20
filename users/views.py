@@ -18,8 +18,8 @@ def register(request):
         form = UserRegistrationForm()
     return render(request, 'users/register.html', {'form': form})
 
-def user_detail(request,username):
-    user = get_object_or_404(User, username=username)
+def user_detail(request,pk):
+    user = get_object_or_404(User, id=pk)
     posts_counting = Post.objects.filter(author=user).count()
     return render(request, 'users/user_detail.html',{'user': user, 'posts_counting': posts_counting})
 

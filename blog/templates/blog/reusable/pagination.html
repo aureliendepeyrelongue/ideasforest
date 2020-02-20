@@ -1,0 +1,38 @@
+{% if is_paginated %}
+<div class="col-md-12 paginator-container">
+    <nav aria-label="...">
+        <ul class="pagination justify-content-center">
+            {% if list.has_previous %}
+            <li class="page-item ">
+                <a class="page-link" href="?page=1" tabindex="-1">Premier</a>
+            </li>
+            <li class="page-item ">
+                <a class="page-link" " href=" ?page={{ list.previous_page_number }}" tabindex="-1">Précédent</a>
+            </li>
+            {% endif %}
+
+            {% for num in list.paginator.page_range %}
+            {% if list.number == num %}
+            <li class="page-item active">
+                <a class="page-link" href="?page={{ num }}">{{num}}</a>
+            </li>
+            {% elif num > list.number|add:'-3' and num < list.number|add:'3' %}
+            <li class="page-item ">
+                <a class="page-link" href="?page={{ num }}">{{num}}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            {% if list.has_next %}
+            <li class="page-item ">
+                <a class="page-link" href="?page={{list.next_page_number}}">Suivant</a>
+            </li>
+            <li class="page-item ">
+                <a class="page-link" href="?page={{ list.paginator.num_pages }}">Précédent</a>
+            </li>
+            {% endif %}
+
+        </ul>
+    </nav>
+</div>
+{% endif %}
