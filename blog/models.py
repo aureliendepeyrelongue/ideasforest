@@ -37,4 +37,11 @@ class Like(models.Model):
     def __str__(self):
         return self.post.title + ' // ' + self.author.username
 
+class ContactMessage(models.Model):
+    name = models.CharField(max_length=200)
+    email = models.CharField(max_length=200)
+    content = models.TextField()
+    date_posted = models.DateTimeField(default=timezone.now)
 
+    def __str__(self):
+        return self.name + ' // ' + self.email

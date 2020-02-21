@@ -9,12 +9,13 @@ from django.views.generic import (
     UpdateView,
     DeleteView)
 from .models import Post, Comment, Like
-from .forms import CommentForm
+from .forms import CommentForm, ContactMessageForm
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.core.paginator import Paginator
 from .constants import POSTS_PER_PAGE
 from .utils import get_posts_and_likes
+from django.contrib import messages
 
 # Create your views here.
 def post_list_view(request):
@@ -149,7 +150,6 @@ def post_detail_view(request,pk):
     'already_liked' : already_liked
     })
 
-
 class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     model = Post
     success_url = '/'
@@ -183,8 +183,21 @@ class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
         post = self.get_object()
         return self.request.user == post.author
 
-def about(request):
-      context = {}
-      context['about_active'] = 'active'
-      return render(request, 'blog/about.html',context)
+def about_view(request):
+    context = {}
+    return render(request, 'blog/about.html',context)
+
+def contact_us_view(request):
+
+    context = {}
+    if request.method == 'POST':
+        form = ContactMessageForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request,f'Votre message a bien été pris en compte ! Nous vous répondons dès que possible.')
+    else:
+        form = ContactMessageForm()
+    
+    return render(request, 'blog/contact_us.html',{'form' : form})
 # Create your views here.

@@ -7,7 +7,9 @@ from .views import (
     PostCreateView,
     PostUpdateView,
     PostDeleteView,
-    ajax_like)
+    ajax_like,
+    contact_us_view,
+    about_view)
 from . import views
 
 urlpatterns = [
@@ -18,8 +20,9 @@ urlpatterns = [
     path('api/post/<int:pk>/like', ajax_like, name='like-post'),
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
     path('post/new/', PostCreateView.as_view(), name='post-create'),
-    path('post_search/', search_results_list_view, name='search-results') ,  
-    path('about/', views.about, name='blog-about')
+    path('post_search/', search_results_list_view, name='search-results') , 
+    path('about/', contact_us_view, name='contact-us'), 
+    path('about/', about_view, name='blog-about')
 
 ]
 
